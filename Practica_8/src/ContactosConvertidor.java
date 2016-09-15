@@ -22,12 +22,37 @@ public class ContactosConvertidor implements Validator {
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         //validando que la matricula no sea menor al 2000
         Contactos contactos = (Contactos) value;
-        if(Contactos.getMatricula().startsWith("19")){
-            System.out.println("Matricula no valida....");
-            FacesMessage facesMessage=new FacesMessage(FacesMessage.SEVERITY_ERROR, "Matricula debe ser mayor a 2000",
-                    "Debe ser una matricual mayor a 2000");
+        if(Contactos.getNombre().isEmpty()){
+            System.out.println("Casilla vacia!!!");
+            FacesMessage facesMessage=new FacesMessage(FacesMessage.SEVERITY_ERROR, "Debe escribir un nombre","Debe escribir un nombre");
             throw new ValidatorException(facesMessage);
         }
+
+        if(Contactos.getApellido().isEmpty()){
+            System.out.println("Casilla vacia!!!");
+            FacesMessage facesMessage=new FacesMessage(FacesMessage.SEVERITY_ERROR, "Debe escribir un apellido","Debe escribir un apellido");
+            throw new ValidatorException(facesMessage);
+        }
+        if(Contactos.getDireccion().isEmpty()){
+            System.out.println("Casilla vacia!!!");
+            FacesMessage facesMessage=new FacesMessage(FacesMessage.SEVERITY_ERROR, "Debe escribir una Direccion","Debe escribir una Direccion");
+            throw new ValidatorException(facesMessage);
+        }
+        if(Contactos.getTelefono().isEmpty()){
+            System.out.println("Casilla vacia!!!");
+            FacesMessage facesMessage=new FacesMessage(FacesMessage.SEVERITY_ERROR, "Debe escribir un telefon","Debe escribir un telefono");
+            throw new ValidatorException(facesMessage);
+        }
+
+        if(Contactos.getCorreo().isEmpty()){
+            System.out.println("Casilla vacia!!!");
+            FacesMessage facesMessage=new FacesMessage(FacesMessage.SEVERITY_ERROR, "Debe escribir un Correo","Debe escribir un Correo");
+            throw new ValidatorException(facesMessage);
+        }
+
+
+
+
     }
 
 
