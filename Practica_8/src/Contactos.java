@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * Created by carlosb108 on 9/14/16.
  */
@@ -6,8 +8,18 @@ public class Contactos {
     private String nombre;
     private String apellido;
     private String Direccion;
-    private Integer Telefono;
+    private String Telefono;
     private String Correo;
+
+
+
+    public Contactos(String nombre, String apellido,String Direccion,String Telefono,String Correo) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.Direccion = Direccion;
+        this.Telefono = Telefono;
+        this.Correo = Correo;
+    }
 
     public String getNombre() {
         return nombre;
@@ -33,11 +45,11 @@ public class Contactos {
         Direccion = direccion;
     }
 
-    public Integer getTelefono() {
+    public String getTelefono() {
         return Telefono;
     }
 
-    public void setTelefono(Integer telefono) {
+    public void setTelefono(String telefono) {
         Telefono = telefono;
     }
 

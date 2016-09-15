@@ -2,70 +2,47 @@
  * Created by carlosb108 on 9/14/16.
  */
 
-
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
-import javax.faces.validator.FacesValidator;
-import javax.faces.validator.Validator;
-import javax.faces.validator.ValidatorException;
 
 
-@FacesValidator(value = "miValidadorContactos")
 
-public class ContactosConvertidor implements Validator {
+
+@FacesConverter(value = "miConvertidorContactos")
+public class ContactosConvertidor implements Converter {
 
     @Override
-    public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-        //validando que la matricula no sea menor al 2000
+    public Object getAsObject(FacesContext context, UIComponent component, String value) {
+        System.out.println("Valor Recibido Conversion: " + value);
+        if (value == null || value.length() == 0) {
+            //error. sin datos.
+            System.out.println("Error sin datos..");
+            return null;
+        }
+
+        if (value.length() != 10 || !value.contains("-")) { //trabajar mejor
+            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Valor no corresponde con el valor esperado",
+                    "EL telefono debe tener la cantidad de 8 numeros");
+            //enviando la excepcion.
+            throw new ConverterException(facesMessage);
+        }
+
+        //Llamada a una base de datos... o interfaz...
+        Contactos contactos =new Contactos(value, "Contacto -> " +value);
+
+        return contactos;
+
+    }
+    @Override
+    public String getAsString(FacesContext context, UIComponent component, Object value) {
         Contactos contactos = (Contactos) value;
-        if(Contactos.getNombre().isEmpty()){
-            System.out.println("Casilla vacia!!!");
-            FacesMessage facesMessage=new FacesMessage(FacesMessage.SEVERITY_ERROR, "Debe escribir un nombre","Debe escribir un nombre");
-            throw new ValidatorException(facesMessage);
-        }
-
-        if(Contactos.getApellido().isEmpty()){
-            System.out.println("Casilla vacia!!!");
-            FacesMessage facesMessage=new FacesMessage(FacesMessage.SEVERITY_ERROR, "Debe escribir un apellido","Debe escribir un apellido");
-            throw new ValidatorException(facesMessage);
-        }
-        if(Contactos.getDireccion().isEmpty()){
-            System.out.println("Casilla vacia!!!");
-            FacesMessage facesMessage=new FacesMessage(FacesMessage.SEVERITY_ERROR, "Debe escribir una Direccion","Debe escribir una Direccion");
-            throw new ValidatorException(facesMessage);
-        }
-        if(Contactos.getTelefono().isEmpty()){
-            System.out.println("Casilla vacia!!!");
-            FacesMessage facesMessage=new FacesMessage(FacesMessage.SEVERITY_ERROR, "Debe escribir un telefon","Debe escribir un telefono");
-            throw new ValidatorException(facesMessage);
-        }
-
-        if(Contactos.getCorreo().isEmpty()){
-            System.out.println("Casilla vacia!!!");
-            FacesMessage facesMessage=new FacesMessage(FacesMessage.SEVERITY_ERROR, "Debe escribir un Correo","Debe escribir un Correo");
-            throw new ValidatorException(facesMessage);
-        }
-
-
-
-
+        return contactos.getTelefono();
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+    
 }
