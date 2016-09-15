@@ -19,6 +19,7 @@ public class Contactos {
         this.Direccion = Direccion;
         this.Telefono = Telefono;
         this.Correo = Correo;
+        
     }
 
     public String getNombre() {
